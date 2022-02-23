@@ -17,19 +17,19 @@ class Event(models.Model):
         ('S','SOCCER'),
     ]
     title = models.CharField(max_length=255)
-    place = models.ForeignKey(Place,on_delete=models.CASCADE,name='event')
+    place = models.ForeignKey(Place,on_delete=models.CASCADE,related_name='event')
     event_type = models.CharField(choices=EVENT_TYPES,max_length=1)
     date = models.DateTimeField()
     duration = models.IntegerField()
 
 class TicketPrice(models.Model):
-    event = models.ForeignKey(Event,on_delete=models.CASCADE,name='ticket')
-    seat = models.OneToOneField(Seat,on_delete=models.CASCADE,name='seat')
+    event = models.ForeignKey(Event,on_delete=models.CASCADE,related_name='ticket_price')
+    seat = models.OneToOneField(Seat,on_delete=models.CASCADE,related_name='seat')
     price = models.FloatField()
 
 
 class Ticket(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,name='user')
-    detail = models.OneToOneField(TicketPrice,on_delete=models.CASCADE,name='ticket_detail')
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='user')
+    detail = models.OneToOneField(TicketPrice,on_delete=models.CASCADE,related_name='detail')
 
 

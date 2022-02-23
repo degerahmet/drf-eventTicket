@@ -24,7 +24,7 @@ class SeatingPlan(models.Model):
         (5,'Level 5'),
         (6,'VIP'),
     ]
-    place = models.ForeignKey(Place,on_delete=models.CASCADE,name='seatingPlan')
+    place = models.ForeignKey(Place,on_delete=models.CASCADE,related_name='seatingPlan')
     capacity = models.IntegerField()
     code = models.CharField(max_length=255)
     level = models.IntegerField(choices=LEVELS)
@@ -46,5 +46,5 @@ class SeatingPlan(models.Model):
 
 
 class Seat(models.Model):
-    seating_plan = models.ForeignKey(SeatingPlan,on_delete=models.CASCADE,name='seat')
+    seating_plan = models.ForeignKey(SeatingPlan,on_delete=models.CASCADE,related_name='seat')
     seat_code = models.CharField(max_length=7)
