@@ -1,6 +1,7 @@
 from random import choice
 from django.db import models
-
+import string
+import random
 # Create your models here.
 
 
@@ -29,4 +30,21 @@ class SeatingPlan(models.Model):
     level = models.IntegerField(choices=LEVELS)
 
 
+    def save(self):
+        capacity = self.capacity
 
+
+        for x in range(capacity):
+
+            letters = string.ascii_uppercase
+            seat_code = ''.join(random.choice(letters) for i in range(7))
+            seat = Seat(SeatingPlan=self.id,seat_code=seat_code)
+            
+            seat.save()
+        
+        return super().save()
+
+
+class Seat(models.Model):
+    seating_plan = models.ForeignKey(SeatingPlan,on_delete=models.CASCADE,name='seat')
+    seat_code = models.CharField(max_length=7)
