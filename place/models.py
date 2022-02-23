@@ -26,7 +26,7 @@ class SeatingPlan(models.Model):
     place = models.ForeignKey(Place,on_delete=models.CASCADE,name='seatingPlan')
     capacity = models.IntegerField()
     code = models.CharField(max_length=255)
-    level = models.IntegerField(choices=LEVELS,max_length=1)
+    level = models.IntegerField(choices=LEVELS)
 
 
 
